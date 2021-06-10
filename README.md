@@ -2,6 +2,10 @@
 
 ## Installation
 
+### Font
+Install the patched font - it's pretty good and has all the icons:
+https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k
+
 ### Empty home directory
 ```
 git clone --separate-git-dir=~/.dotfiles git@github.com:threadproc/dotfiles.git ~
