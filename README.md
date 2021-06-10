@@ -18,7 +18,7 @@ Then restart zsh
 with a different work tree.
 
 ```
-git clone --separate-git-dir=~/.dotfiles git@github.com:threadproc/dotfiles.git ~/dotfiles-tmp
+git clone --separate-git-dir=$HOME/.dotfiles git@github.com:threadproc/dotfiles.git $HOME/dotfiles-tmp
 cp ~/dotfiles-tmp/.gitmodules ~
 rm -r ~/dotfiles-tmp/
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
