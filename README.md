@@ -10,6 +10,7 @@ https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel1
 ```
 git clone --separate-git-dir=~/.dotfiles git@github.com:threadproc/dotfiles.git ~
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+dotfiles config status.showUntrackedFiles no
 dotfiles submodule init
 dotfiles submodule update
 ```
@@ -25,6 +26,7 @@ git clone --separate-git-dir=$HOME/.dotfiles git@github.com:threadproc/dotfiles.
 cp ~/dotfiles-tmp/.gitmodules ~
 rm -r ~/dotfiles-tmp/
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+dotfiles config status.showUntrackedFiles no
 dotfiles reset --hard
 dotfiles submodule init
 dotfiles submodule update
