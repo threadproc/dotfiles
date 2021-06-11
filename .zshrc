@@ -57,3 +57,13 @@ source ~/.powerlevel10k/powerlevel10k.zsh-theme
 precmd () {
 	print -Pn "\e]0;%~\a"
 }
+
+# source all env and alias files
+# the (N) after the glob sets nullglob mode, preventing an error if no files match
+# see: https://zsh.sourceforge.io/Doc/Release/Expansion.html#Glob-Qualifiers
+for f in $HOME/.aliases/*(N); do
+	source "$f"
+done
+for f in $HOME/.env/*(N); do
+	source "$f"
+done
