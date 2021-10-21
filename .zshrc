@@ -67,3 +67,6 @@ done
 for f in $HOME/.env/*(N); do
 	source "$f"
 done
+for f in $HOME/.zsh.d/*(N); do
+	source "$f"
+done
