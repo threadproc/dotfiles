@@ -1,0 +1,9 @@
+aws_instanceid() {
+    local name="$1"
+    aws ec2 describe-instances --filters "Name=tag:Name,Values=$name" --output text --query 'Reservations[*].Instances[*].InstanceId'
+}
+
+aws_ssh() {
+    local name="$1"
+    aws ssm start-session --target "`aws_instanceid $name`"
+}
