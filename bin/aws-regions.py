@@ -16,8 +16,6 @@ if os.path.exists(cache_file) and os.path.getmtime(cache_file) > time.time() - (
         print(fh.read())
     sys.exit(0)
 
-# TODO: check if the file is too old
-
 try:
     cmd = subprocess.run(["aws", "ec2", "describe-regions", "--query", "Regions[*].RegionName", "--output", "text"], capture_output=True)
 
