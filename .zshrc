@@ -22,6 +22,7 @@ SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
 # Use modern completion system
+fpath=(~/.zsh_autocomplete $fpath)
 autoload -Uz compinit
 compinit
 
