@@ -16,3 +16,7 @@ aws_profile() {
     export AWS_PROFILE="$1"
     unset AWS_DEFAULT_REGION
 }
+
+aws_portforward() {
+    aws ssm start-session --target $(aws_instanceid "$1") --document-name AWS-StartPortForwardingSession --parameters "{\"portNumber\":[\"$2\"],\"localPortNumber\":[\"$3\"]}"
+}
