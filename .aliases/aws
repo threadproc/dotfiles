@@ -7,3 +7,12 @@ aws_ssh() {
     local name="$1"
     aws ssm start-session --target "`aws_instanceid $name`"
 }
+
+aws_region() {
+    export AWS_DEFAULT_REGION="$1"
+}
+
+aws_profile() {
+    export AWS_PROFILE="$1"
+    unset AWS_DEFAULT_REGION
+}
