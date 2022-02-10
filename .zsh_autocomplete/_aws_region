@@ -1,0 +1,14 @@
+#compdef aws_region
+
+_aws_region() {
+    local state
+
+    _arguments \
+        '1: :-> aws_region'
+    
+    case $state in
+        (aws_region) compadd $(~/bin/aws-regions.py)
+    esac
+}
+
+_aws_region "$@"
