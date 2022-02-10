@@ -7,7 +7,9 @@ _aws_region() {
         '1: :-> aws_region'
     
     case $state in
-        (aws_region) compadd $(~/bin/aws-regions.py)
+        aws_region)
+            compadd $(~/bin/aws-regions.py 2>/dev/null)
+            ;;
     esac
 }
 

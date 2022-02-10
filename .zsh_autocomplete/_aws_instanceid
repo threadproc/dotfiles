@@ -1,0 +1,16 @@
+#compdef aws_instanceid
+
+_aws_instanceid() {
+    local state
+
+    _arguments \
+        '1: :-> instance_name'
+    
+    case $state in
+        instance_name)
+            compadd $(~/bin/aws-instances.py 2>/dev/null)
+            ;;
+    esac
+}
+
+_aws_instanceid "$@"
