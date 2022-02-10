@@ -23,8 +23,13 @@ HISTFILE=~/.zsh_history
 
 # Use modern completion system
 fpath=(~/.zsh_autocomplete $fpath)
+autoload bashcompinit
 autoload -Uz compinit
+bashcompinit
 compinit
+
+# setup AWS autocomplete
+[[ ! -f ~/.aws/config ]] || complete -C aws_completer aws
 
 # setup autosuggestions
 source ~/.zsh.d/zsh-autosuggestions/zsh-autosuggestions.zsh
