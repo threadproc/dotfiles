@@ -1,0 +1,15 @@
+[user]
+	name = Kai Parry
+	email = tp@threadproc.io
+
+[init]
+	defaultBranch = main
+
+[url "ssh://git@gitlab.wheniwork.com/"]
+	insteadOf = https://gitlab.wheniwork.com/
+
+[includeIf "gitdir:~/dev/wiw/"]
+	path = ~/dev/wiw/gitconfig
+
+[includeIf "gitdir:~/dev/kira/"]
+	path = ~/dev/kira/gitconfig
