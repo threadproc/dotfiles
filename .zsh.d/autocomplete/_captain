@@ -1,0 +1,66 @@
+#compdef captain
+
+_arguments \
+  '1: :->level1' \
+  '2: :->level2' \
+  '3: :->level3' \
+  '4: :_files'
+case $state in
+  level1)
+    case $words[1] in
+      captain)
+        _arguments '1: :(help service setup task template version)'
+      ;;
+      *)
+        _arguments '*: :_files'
+      ;;
+    esac
+  ;;
+  level2)
+    case $words[2] in
+      task)
+        if captain_output=$(captain task --no-headers 2>/dev/null); then
+	out=($(echo "${captain_output}" | awk '{print $1}'))
+	_arguments '2: :(${out[*]})'
+fi
+      ;;
+      service)
+        _arguments '2: :(down list restart up)'
+      ;;
+      setup)
+        _arguments '2: :(autocomplete)'
+      ;;
+      *)
+        _arguments '*: :_files'
+      ;;
+    esac
+  ;;
+  level3)
+    case $words[3] in
+      down)
+        if captain_output=$(captain service list --no-headers 2>/dev/null); then
+out=($(echo "${captain_output}" | awk '{print $1}'))
+_arguments '3: :(${out[*]})'
+fi
+      ;;
+      restart)
+        if captain_output=$(captain service list --no-headers 2>/dev/null); then
+out=($(echo "${captain_output}" | awk '{print $1}'))
+_arguments '3: :(${out[*]})'
+fi
+      ;;
+      up)
+        if captain_output=$(captain service list --no-headers 2>/dev/null); then
+out=($(echo "${captain_output}" | awk '{print $1}'))
+_arguments '3: :(${out[*]})'
+fi
+      ;;
+      *)
+        _arguments '*: :_files'
+      ;;
+    esac
+  ;;
+  *)
+    _arguments '*: :_files'
+  ;;
+esac
