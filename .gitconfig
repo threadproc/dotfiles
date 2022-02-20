@@ -5,8 +5,16 @@
 [init]
 	defaultBranch = main
 
+[rerere]
+	enabled = true
+[pull]
+	rebase = true
+
 [url "ssh://git@gitlab.wheniwork.com/"]
 	insteadOf = https://gitlab.wheniwork.com/
+
+[includeIf "gitdir:~/dev/"]
+	path = ~/dev/gitconfig
 
 [includeIf "gitdir:~/dev/wiw/"]
 	path = ~/dev/wiw/gitconfig
