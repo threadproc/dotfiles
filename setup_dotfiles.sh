@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -o errexit
+shopt -s expand_aliases
 
 DOTFILES_DIR="$HOME/.dotfiles"
 DOTFILES_REPO="https://github.com/threadproc/dotfiles.git"
