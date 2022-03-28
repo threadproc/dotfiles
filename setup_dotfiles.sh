@@ -25,10 +25,10 @@ install_package() {
         brew install "$pkg"
     elif [ $(uname) == "Linux" ]; then
 
-        if [ `command -v apt-get &>/dev/null` ]; then
+        if [ `command -v apt-get` ]; then
             # this is a debian-based distro
             DEBIAN_FRONTEND=noninteractive apt-get -y install "$pkg"
-        elif [ `command -v yum &>/dev/null` ]; then
+        elif [ `command -v yum` ]; then
             # centos, RHEL, etc
             yum -y install "$pkg"
         else
