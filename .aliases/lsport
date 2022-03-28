@@ -1,0 +1,19 @@
+lsport() {
+	if [ $(uname) != "Darwin" ]; then
+		exec command netstat -ln
+	fi
+
+	port="$1"
+	if [[ ! -z "$port" ]] && port=":$port"
+	sudo lsof -P -iTCP$port -sTCP:LISTEN
+}
+
+netstat() {
+	if [ $(uname) != "Darwin" ]; then
+		exec command netstat "$@"
+	fi
+	
+	command netstat "$@"
+	echo
+	echo "Did you mean to use lsport <PORT>?"
+}
