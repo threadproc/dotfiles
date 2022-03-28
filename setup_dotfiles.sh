@@ -7,47 +7,72 @@ DOTFILES_REPO="git@github.com:threadproc/dotfiles.git"
 DOTFILES_TMP="$HOME/df-tmp"
 OS=$(uname)
 
-GITPATH=$(which git)
-
 if [ -d "$DOTFILES_DIR" ]; then
     echo "Dotfiles already installed"
     exit 1
-else
-    echo "Installing dotfiles..."
-    rm -rf "$DOTFILES_TMP" # cleanup after ourselves if this script previously failed
-    
-    # check for zsh
-    if [ ! `command -v zsh &>/dev/null` ]; then
-        if [ "$OS" == "Darwin" ]; then
-            echo "Installing zsh with homebrew..."
-            brew install zsh
-        elif [ "$OS" == "Linux" ]; then
+fi
 
-            if [ ! `command -v apt-get &>/dev/null` ]; then
-                echo "Running on a non-Debian system, you must install zsh manually!"
-                exit 1
-            fi
-
-            apt-get install zsh
-
-        else
-            echo "You must install zsh to use these dotfiles!"
-            exit 1
-        fi
-        
+install_package() {
+    pkg="$1"
+    if [ -z "$pkg" ]; then
+        echo "package name can't be empty"
+        exit 1
     fi
 
-    # we want to get the submodules setup right away
-    $GITPATH clone --separate-git-dir="$DOTFILES_DIR" "$DOTFILES_REPO" "$DOTFILES_TMP"
-    cp "$DOTFILES_TMP/.gitmodules" "$HOME/.gitmodules"
-    rm -rf "$DOTFILES_TMP"
+    echo "Installing package $pkg"
 
-    unalias dotfiles 2>/dev/null || true # in case this already exists from an unclean setup
-    alias dotfiles="$GITPATH --git-dir=\"$DOTFILES_DIR\" --work-tree=\"$HOME\""
-    dotfiles config status.showUntrackedFiles no
-    dotfiles reset --hard
-    dotfiles submodule init
-    dotfiles submodule update
+    if [ $(uname) == "Darwin" ]; then
+        brew install "$pkg"
+    elif [ $(uname) == "Linux" ]; then
 
-    echo "Dotfiles installed, please restart your shell"
-fi
+        if [ `command -v apt-get &>/dev/null` ]; then
+            # this is a debian-based distro
+            DEBIAN_FRONTEND=noninteractive apt-get -y install "$pkg"
+        elif [ `command -v yum &>/dev/null` ]; then
+            # centos, RHEL, etc
+            yum -y install "$pkg"
+        else
+            echo "no supported package manager found"
+            exit 1
+        fi
+
+    else
+        echo "unsupported platform: $(uname)"
+        exit 1
+    fi
+}
+
+install_if_missing() {
+    cmd="$1"
+    pkg="$2"
+
+    if [ -z "$pkg" ]; then
+        pkg="$cmd"
+    fi
+
+    if [ ! `command -v "$cmd"` ]; then install_package "$pkg"; fi
+}
+
+# attempt to install git if it isn't already installed
+install_if_missing "git"
+GITPATH=$(which git)
+
+echo "Installing dotfiles..."
+rm -rf "$DOTFILES_TMP" # cleanup after ourselves if this script previously failed
+
+# check for zsh
+install_if_missing "zsh"
+
+# we want to get the submodules setup right away
+$GITPATH clone --separate-git-dir="$DOTFILES_DIR" "$DOTFILES_REPO" "$DOTFILES_TMP"
+cp "$DOTFILES_TMP/.gitmodules" "$HOME/.gitmodules"
+rm -rf "$DOTFILES_TMP"
+
+unalias dotfiles 2>/dev/null || true # in case this already exists from an unclean setup
+alias dotfiles="$GITPATH --git-dir=\"$DOTFILES_DIR\" --work-tree=\"$HOME\""
+dotfiles config status.showUntrackedFiles no
+dotfiles reset --hard
+dotfiles submodule init
+dotfiles submodule update
+
+echo "Dotfiles installed, please restart your shell"
