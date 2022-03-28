@@ -43,13 +43,14 @@ install_if_missing() {
     if [ ! `command -v "$cmd"` ]; then install_package "$pkg"; fi
 }
 
+# install dependencies
+install_if_missing "git"
+install_if_missing "zsh"
+
 DOTFILES_DIR="$HOME/.dotfiles"
 DOTFILES_REPO="https://github.com/threadproc/dotfiles.git"
 DOTFILES_TMP="$HOME/df-tmp"
 OS=$(uname)
-
-# attempt to install git if it isn't already installed
-install_if_missing "git"
 GITPATH=$(which git)
 DFEXEC="$GITPATH --git-dir=$DOTFILES_DIR --work-tree=$HOME"
 
@@ -61,9 +62,6 @@ else
 fi
 
 rm -rf "$DOTFILES_TMP" # cleanup after ourselves if this script previously failed
-
-# check for zsh
-install_if_missing "zsh"
 
 # we want to get the submodules setup right away
 echo "Cloning dotfiles repository..."
