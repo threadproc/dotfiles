@@ -1,9 +1,9 @@
 #!/bin/bash
 
-set +o errexit
+set -o errexit
 
 DOTFILES_DIR="$HOME/.dotfiles"
-DOTFILES_REPO="git@github.com:threadproc/dotfiles.git"
+DOTFILES_REPO="https://github.com/threadproc/dotfiles.git"
 DOTFILES_TMP="$HOME/df-tmp"
 OS=$(uname)
 
