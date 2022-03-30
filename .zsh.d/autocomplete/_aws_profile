@@ -9,6 +9,7 @@ _aws_profile() {
     case $state in
         aws_profile)
             compadd $(sed -n -E 's/\[([a-zA-Z0-9_\-]+)\]/\1/p' ~/.aws/credentials | tr \\n ' ')
+            compadd $(sed -n -E 's/\[profile ([a-zA-Z0-9_\-]+)\]/\1/p' ~/.aws/config | tr \\n ' ')
             ;;
     esac
 }
