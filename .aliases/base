@@ -1,4 +1,5 @@
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias tmux="command tmux new -As0"
 
 ls() {
     if [ `command -v gls` ]; then
