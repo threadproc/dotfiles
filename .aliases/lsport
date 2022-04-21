@@ -17,3 +17,7 @@ netstat() {
 	echo
 	echo "Did you mean to use lsport <PORT>?"
 }
+
+routes() {
+	command netstat -rn -f inet
+}
