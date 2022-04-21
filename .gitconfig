@@ -22,4 +22,4 @@
 [includeIf "gitdir:~/dev/kira/"]
 	path = ~/dev/kira/gitconfig
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore_global
